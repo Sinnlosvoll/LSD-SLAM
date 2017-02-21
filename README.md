@@ -34,7 +34,7 @@ to install:
    git clone https://github.com/antonays/lsd-slam.git lsd-slam
    ```
    
-4) make using catking
+4) make using catkin
 -----------------------------
 ```bash
    cd ../.. (make sure to be in catkin_ws - same level of /src)
