@@ -11,8 +11,10 @@ The package was ONLY tested on Ubuntu 14.04, ROS indigo and catkin.
 to install:
 
 0) make sure ROS indigo is installed and working
+-----------------------------
 
 1) install dependancies
+-----------------------------
 ```
    sudo apt-get install ros-indigo-libg2o ros-indigo-cv-bridge liblapack-dev libblas-dev freeglut3-dev libqglviewer-dev libsuitesparse-dev libx11-dev
 ```
