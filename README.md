@@ -41,21 +41,21 @@ after some time should compile correctly
 * in 'catkin_ws/src/lsd_slam/lsd_slam_core/package.xml'  added:
 ```bash
 	<build_depend>cmake_modules</build_depend>
-	<run_depend>cmake_modules</run_depend> 
-	```
+	<run_depend>cmake_modules</run_depend> ```
+	
 
 * in catkin_ws/src/lsd_slam/lsd_slam_viewer/package.xml  add:
-```bash
+ ```bash
 	<build_depend>cmake_modules</build_depend>
-	<run_depend>cmake_modules</run_depend> 
-	```
+	<run_depend>cmake_modules</run_depend> ```
+	
 	
 * in catkin_ws/src/lsd_slam/lsd_slam_viewer/CMakeFiles.txt  add:
 ```bash
 	find_package(cmake_modules REQUIRED)
 	
-	add_dependencies(viewer lsd_slam_viewer_generate_messages_cpp)
-	```
+	add_dependencies(viewer lsd_slam_viewer_generate_messages_cpp)```
+	
 
 * in catkin_ws/src/lsd_slam/lsd_slam_core/CMakeFiles.txt  add:
 ```bash
@@ -66,7 +66,7 @@ after some time should compile correctly
 	
 	add_dependencies(lsdslam lsd_slam_viewer_generate_messages_cpp)
 	add_dependencies(live_slam lsd_slam_viewer_generate_messages_cpp)
-	add_dependencies(dataset lsd_slam_viewer_generate_messages_cpp)
-	```
+	add_dependencies(dataset lsd_slam_viewer_generate_messages_cpp)```
+	
 
 
