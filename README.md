@@ -14,9 +14,9 @@ to install:
 
 1) create catkin workspace 
 -----------------------------
-   mkdir catkin_ws
-   mkdir catkin_ws/src
-   cd catkin_ws/src
+   '''mkdir catkin_ws'''
+   '''mkdir catkin_ws/src'''
+   '''cd catkin_ws/src'''
    catkin_init_workspace
 
 2) clone this repo (into src directory)
