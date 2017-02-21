@@ -72,5 +72,7 @@ after some time should compile correctly
 	add_dependencies(dataset lsd_slam_viewer_generate_messages_cpp)
 ```
 	
+Verify the succesfulness of the compilation by checking that the C++ are able to link to executables.
 
+There may be some warning in the process.
 
