@@ -12,7 +12,12 @@ to install:
 
 0) make sure ROS indigo is installed and working
 
-1) create catkin workspace 
+1) install dependancies
+```
+   sudo apt-get install ros-indigo-libg2o ros-indigo-cv-bridge liblapack-dev libblas-dev freeglut3-dev libqglviewer-dev libsuitesparse-dev libx11-dev
+```
+
+2) create catkin workspace 
 -----------------------------
 ```bash
    mkdir catkin_ws
@@ -21,13 +26,13 @@ to install:
    catkin_init_workspace
    ```
 
-2) clone this repo (into src directory)
+3) clone this repo (into src directory)
 -----------------------------
 ```bash
    git clone https://github.com/antonays/lsd-slam.git lsd-slam
    ```
    
-3) make using catking
+4) make using catking
 -----------------------------
 ```bash
    cd ../.. (make sure to be in catkin_ws - same level of /src)
