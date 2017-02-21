@@ -39,13 +39,13 @@ after some time should compile correctly
 ### Alterations performed:
 ========================
 * in 'catkin_ws/src/lsd_slam/lsd_slam_core/package.xml'  added:
-```xml
+```bash
 	<build_depend>cmake_modules</build_depend>
 	<run_depend>cmake_modules</run_depend> 
 	```
 
 * in catkin_ws/src/lsd_slam/lsd_slam_viewer/package.xml  add:
-```xml
+```bash
 	<build_depend>cmake_modules</build_depend>
 	<run_depend>cmake_modules</run_depend> 
 	```
