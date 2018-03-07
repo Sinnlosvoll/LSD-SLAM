@@ -20,10 +20,18 @@ find_package(catkin REQUIRED COMPONENTS
   rosbag
 )
 
-find_package(Eigen REQUIRED)
+find_package(OpenCV 3 REQUIRED)
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
+)
+
+
+
+find_package(Eigen3 REQUIRED)
 find_package(X11 REQUIRED)
-include(cmake/FindG2O.cmake)
-include(cmake/FindSuiteParse.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindG2O.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindSuiteParse.cmake)
 
 message("-- CHOLMOD_INCLUDE_DIR : " ${CHOLMOD_INCLUDE_DIR})
 message("-- CSPARSE_INCLUDE_DIR : " ${CSPARSE_INCLUDE_DIR})
@@ -43,8 +51,8 @@ generate_dynamic_reconfigure_options(
 
 catkin_package(
   LIBRARIES lsdslam
-  DEPENDS Eigen SuiteSparse
-  CATKIN_DEPENDS libg2o 
+  DEPENDS Eigen3 SuiteSparse
+  CATKIN_DEPENDS libg2o
 )
 
 # SSE flags
@@ -54,7 +62,7 @@ add_definitions("-DENABLE_SSE")
 # Also add some useful compiler flag
 set(CMAKE_CXX_FLAGS
    "${CMAKE_CXX_FLAGS} -march=native -Wall -std=c++0x"
-) 
+)
 
 # Set source files
 set(lsd_SOURCE_FILES
@@ -89,6 +97,7 @@ set(SOURCE_FILES
 
 include_directories(
   include
+  /opt/ros/kinetic/include
   ${EIGEN3_INCLUDE_DIR}
   ${PROJECT_SOURCE_DIR}/src
   ${PROJECT_SOURCE_DIR}/thirdparty/Sophus
@@ -99,18 +108,18 @@ include_directories(
 
 # build shared library.
 add_library(lsdslam SHARED ${SOURCE_FILES})
-target_link_libraries(lsdslam ${FABMAP_LIB} ${G2O_LIBRARIES} ${catkin_LIBRARIES} csparse cxsparse X11)
+target_link_libraries(lsdslam ${FABMAP_LIB} ${G2O_LIBRARIES} ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} csparse cxsparse X11)
 #rosbuild_link_boost(lsdslam thread)
 
 
 # build live ros node
 add_executable(live_slam src/main_live_odometry.cpp)
-target_link_libraries(live_slam lsdslam ${catkin_LIBRARIES} ${G2O_LIBRARIES})
+target_link_libraries(live_slam lsdslam ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${G2O_LIBRARIES})
 
 
 # build image node
 add_executable(dataset src/main_on_images.cpp)
-target_link_libraries(dataset lsdslam ${catkin_LIBRARIES} ${G2O_LIBRARIES})
+target_link_libraries(dataset lsdslam ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${G2O_LIBRARIES})
 
 # TODO add INSTALL
 

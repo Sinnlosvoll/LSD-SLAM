@@ -5,8 +5,8 @@ Based on the lsd-slam project developed by tum-vision form Munich University.
 * Documentation: http://vision.in.tum.de/research/vslam/lsdslam
 * Hosted on Github: https://github.com/tum-vision/lsd_slam
 
-Some adjustments were applied to allow installation of the framework on Ubuntu 14.04, with ROS indigo and catkin.
-The package was ONLY tested on Ubuntu 14.04, ROS indigo and catkin.
+Adjustments were made to allow easy compilation of the framework on Ubuntu 16.04, with ROS kinetic and catkin.
+The package was ONLY (partially) tested on Ubuntu 16.04, ROS kinetic and catkin.
 
 to install:
 
@@ -16,7 +16,7 @@ to install:
 1) install dependancies
 -----------------------------
 ```
-   sudo apt-get install ros-indigo-libg2o ros-indigo-cv-bridge liblapack-dev libblas-dev freeglut3-dev libqglviewer-dev libsuitesparse-dev libx11-dev
+   sudo apt-get install ros-kinetic-libg2o liblapack-dev libblas-dev freeglut3-dev libqglviewer-dev-qt4 libsuitesparse-dev libx11-dev
 ```
 
 2) create catkin workspace 
@@ -31,55 +31,17 @@ to install:
 3) clone this repo (into src directory)
 -----------------------------
 ```bash
-   git clone https://github.com/antonays/lsd-slam.git lsd-slam
+   git clone https://github.com/Sinnlosvoll/lsd-slam.git lsd-slam
    ```
    
 4) make using catkin
 -----------------------------
 ```bash
-   cd ../.. (make sure to be in catkin_ws - same level of /src)
+   cd ..
    catkin_make
    ```
    
-after some time should compile correctly
 
-### Alterations performed:
-========================
-* in 'catkin_ws/src/lsd_slam/lsd_slam_core/package.xml'  added:
-```
-	<build_depend>cmake_modules</build_depend>
-	<run_depend>cmake_modules</run_depend> 
-```
-	
+### Motivation of this Fork
 
-* in catkin_ws/src/lsd_slam/lsd_slam_viewer/package.xml  add:
- ```
-	<build_depend>cmake_modules</build_depend>
-	<run_depend>cmake_modules</run_depend> 
-```
-	
-	
-* in catkin_ws/src/lsd_slam/lsd_slam_viewer/CMakeFiles.txt  add:
-```
-	find_package(cmake_modules REQUIRED)
-	
-	add_dependencies(viewer lsd_slam_viewer_generate_messages_cpp)
-```
-	
-
-* in catkin_ws/src/lsd_slam/lsd_slam_core/CMakeFiles.txt  add:
-```
-	find_package(cmake_modules REQUIRED)
-	change the following line:
-	target_link_libraries(lsdslam ${FABMAP_LIB} ${G2O_LIBRARIES} ${catkin_LIBRARIES} csparse cxsparse X11) 
-	add the X11
-	
-	add_dependencies(lsdslam lsd_slam_viewer_generate_messages_cpp)
-	add_dependencies(live_slam lsd_slam_viewer_generate_messages_cpp)
-	add_dependencies(dataset lsd_slam_viewer_generate_messages_cpp)
-```
-	
-Verify the succesfulness of the compilation by checking that the C++ are able to link to executables.
-
-There may be some warning in the process.
-
+This package has been adapted to the current LTS Version of ubuntu and the current supported ros version to make it easier to use the lsd_slam package.

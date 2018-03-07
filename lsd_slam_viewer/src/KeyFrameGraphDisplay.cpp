@@ -162,7 +162,7 @@ void KeyFrameGraphDisplay::addGraphMsg(lsd_slam_viewer::keyframeGraphMsgConstPtr
 	constraints.resize(msg->numConstraints);
 	assert(msg->constraintsData.size() == sizeof(GraphConstraint)*msg->numConstraints);
 	GraphConstraint* constraintsIn = (GraphConstraint*)msg->constraintsData.data();
-	for(int i=0;i<msg->numConstraints;i++)
+	for(unsigned int i=0;i<msg->numConstraints;i++)
 	{
 		constraints[i].err = constraintsIn[i].err;
 		constraints[i].from = 0;

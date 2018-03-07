@@ -15,6 +15,62 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
 
 find_package(cmake_modules REQUIRED)
 
+set(QGLVIEWER QGLViewer-qt4)
+
+
+find_library(QGLVIEWER_LIBRARY_RELEASE
+    NAMES QGLViewer-qt4 QGLViewer2 QGLViewer2
+    HINTS
+        #--- Windows
+        C:/Developer/lib
+        #--- Linux
+        /usr/lib
+        /usr/local/lib
+        /usr/lib/x86_64-linux-gnu
+        #--- Mac
+        /Library/Frameworks
+        #--- Environment
+        ENV QGLVIEWERROOT
+        ENV LD_LIBRARY_PATH
+        ENV LIBRARY_PATH
+    PATH_SUFFIXES
+        QGLViewer
+        QGLViewer/release)
+
+if(QGLVIEWER_LIBRARY_RELEASE)
+    if(QGLVIEWER_LIBRARY_DEBUG)
+        set(QGLVIEWER_LIBRARIES_ optimized ${QGLVIEWER_LIBRARY_RELEASE} debug ${QGLVIEWER_LIBRARY_DEBUG})
+    else()
+        set(QGLVIEWER_LIBRARIES_ ${QGLVIEWER_LIBRARY_RELEASE})
+    endif()
+    set(QGLVIEWER_LIBRARIES ${QGLVIEWER_LIBRARIES_} CACHE FILEPATH "The QGLViewer library")
+endif()
+
+#message(STATUS "QGLVIEWER_INCLUDE_DIR: ${QGLVIEWER_INCLUDE_DIR}")
+#message(STATUS "QGLVIEWER_LIBRARIES: ${QGLVIEWER_LIBRARIES}")
+
+IF(QGLVIEWER_INCLUDE_DIR AND QGLVIEWER_LIBRARIES)
+   SET(QGLVIEWER_FOUND TRUE)
+ENDIF()
+set(QGLViewer_FIND_REQUIRED true)
+
+IF(QGLVIEWER_FOUND)
+    IF(NOT CMAKE_FIND_QUIETLY)
+        MESSAGE(STATUS "#-#-#-# Found QGLViewer: ${QGLVIEWER_LIBRARIES}")
+    ENDIF()
+ELSE()
+    IF(QGLViewer_FIND_REQUIRED)
+        # MESSAGE(FATAL_ERROR "#-#-#-# Could not find QGLViewer")
+    ENDIF()
+ENDIF()
+
+
+
+
+
+
+
+
 find_package(catkin REQUIRED COMPONENTS
   cv_bridge
   dynamic_reconfigure
@@ -70,13 +126,24 @@ include_directories(
   ${PROJECT_SOURCE_DIR}/thirdparty/Sophus
 )  
 
+find_package(OpenCV 3 REQUIRED)
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
+)
+
+FIND_PACKAGE(QGLViewer REQUIRED)
+INCLUDE_DIRECTORIES(${QGLVIEWER_INCLUDE_DIR})
+
+
 add_executable(viewer src/main_viewer.cpp ${SOURCE_FILES} ${HEADER_FILES})
 target_link_libraries(viewer ${QGLViewer_LIBRARIES}
-			     ${QGLVIEWER_LIBRARY} 
-			     ${catkin_LIBRARIES}
-			     ${Boost_LIBRARIES}
-			     ${QT_LIBRARIES}
-			     GL glut GLU
+           ${QGLVIEWER_LIBRARY} 
+           ${catkin_LIBRARIES}
+           ${OpenCV_LIBRARIES}
+           ${Boost_LIBRARIES}
+           ${QT_LIBRARIES}
+           GL glut GLU
 		     )
 
 #add_executable(videoStitch src/main_stitchVideos.cpp)
